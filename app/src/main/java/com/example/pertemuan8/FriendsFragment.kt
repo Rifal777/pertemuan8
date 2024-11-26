@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +22,9 @@ class FriendsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var friendAdapter: MyFriendAdapter
+    private val friends = mutableListOf<MyFriend>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +38,33 @@ class FriendsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view=inflater.inflate(R.layout.fragment_friends,container,false)
+        recyclerView=view.findViewById(R.id.recycleView)
+        setupRecycleView()
+        return view
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friends, container, false)
+       // return inflater.inflate(R.layout.fragment_friends, container, false)
+    }
+    private fun setupRecycleView(){
+        friends.addAll(
+            listOf(
+                MyFriend("rifal","0812456","rfat@gmail.com"),
+                        MyFriend("cihuy","08124765","cuhuh@gmail.com"),
+                MyFriend("ahay","0757454","tau@gmail.com"),
+                        MyFriend("ahutt","0757454","tau@gmail.com"),
+                                MyFriend("iyya","0757454","tau@gmail.com"),
+                MyFriend("desi","0757454","tau@gmail.com"),
+                MyFriend("danar","0757454","tau@gmail.com"),
+                MyFriend("robi","0757454","tau@gmail.com")
+
+
+
+            )
+        )
+
+        friendAdapter= MyFriendAdapter(friends)
+        recyclerView.layoutManager= LinearLayoutManager(requireContext())
+        recyclerView.adapter=friendAdapter
     }
 
     companion object {
